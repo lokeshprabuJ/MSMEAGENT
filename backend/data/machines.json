@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Semi-automatic Powder Packing Machine",
+    "description": "Packs powders (masala, flour, etc.) into pouches automatically.",
+    "cost": 28000,
+    "type": "Packing",
+    "typical_use": "Replaces manual packing of powders.",
+    "manpower_savings": 2,
+    "vendor_refs": ["V001", "V002"]
+  },
+  {
+    "name": "Automatic Sealing Machine",
+    "description": "Seals pouches and bags quickly and efficiently.",
+    "cost": 22000,
+    "type": "Sealing",
+    "typical_use": "Replaces manual sealing of pouches.",
+    "manpower_savings": 1,
+    "vendor_refs": ["V002", "V003"]
+  },
+  {
+    "name": "Hydraulic Lifting Equipment",
+    "description": "Lifts heavy cement blocks or materials, reducing manual labor.",
+    "cost": 40000,
+    "type": "Material Handling",
+    "typical_use": "Replaces manual lifting in block making units.",
+    "manpower_savings": 2,
+    "vendor_refs": ["V004"]
+  }
+] 

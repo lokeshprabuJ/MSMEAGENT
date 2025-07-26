@@ -1,0 +1,5 @@
+id,vendor_name,contact,location,machine_types,link
+V001,Coimbatore Machinery Mart,+91-9876543210,Coimbatore,Packing|Sealing,https://coimbatoremachinerymart.example.com
+V002,Tamil Nadu Automation Solutions,+91-9123456780,Chennai,Packing|Sealing,https://tnautomation.example.com
+V003,Salem Engineering Works,+91-9988776655,Salem,Sealing,https://salemenggworks.example.com
+V004,BlockTech Lifts,+91-9001122334,Erode,Material Handling,https://blocktechlifts.example.com 
