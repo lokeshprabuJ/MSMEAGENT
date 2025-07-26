@@ -9,7 +9,7 @@ import os
 from dotenv import load_dotenv
 import logging
 import json
-from backend.utils.roi_calculator import calculate_roi
+from utils.roi_calculator import calculate_roi
 import csv
 
 # Load environment variables
