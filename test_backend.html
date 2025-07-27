@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backend Test</title>
+</head>
+<body>
+    <h1>Backend API Test</h1>
+    <button onclick="testBackend()">Test Backend</button>
+    <div id="result"></div>
+
+    <script>
+        async function testBackend() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing...';
+            
+            try {
+                // Test 1: Check if backend is reachable
+                console.log('Testing backend connectivity...');
+                const response1 = await fetch('https://msmeagent.onrender.com/');
+                const data1 = await response1.json();
+                console.log('Backend response:', data1);
+                
+                // Test 2: Test the automation endpoint
+                console.log('Testing automation endpoint...');
+                const testData = {
+                    problem: "I have 3 workers packing masala powder manually"
+                };
+                
+                console.log('Sending data:', testData);
+                
+                const response2 = await fetch('https://msmeagent.onrender.com/api/automation-suggest', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                console.log('Response status:', response2.status);
+                console.log('Response headers:', response2.headers);
+                
+                if (!response2.ok) {
+                    const errorText = await response2.text();
+                    console.error('Error response:', errorText);
+                    resultDiv.innerHTML = `<p style="color: red;">Error: ${response2.status} - ${errorText}</p>`;
+                    return;
+                }
+                
+                const data2 = await response2.json();
+                console.log('Automation response:', data2);
+                resultDiv.innerHTML = `<p style="color: green;">Success! Response: ${JSON.stringify(data2, null, 2)}</p>`;
+                
+            } catch (error) {
+                console.error('Test failed:', error);
+                resultDiv.innerHTML = `<p style="color: red;">Test failed: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html> 

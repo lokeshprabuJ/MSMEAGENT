@@ -26,17 +26,29 @@ function App() {
     try {
       setLoading(true);
       const backendUrl = import.meta.env.VITE_API_URL || 'https://msmeagent.onrender.com';
-      const response = await fetch(`${backendUrl}/api/automation-suggest`, {
+      console.log('Sending request to:', `${backendUrl}/api/automation-suggest`);
+      console.log('Request body:', { problem: query });
+      
+      const response = await fetch(`${backendUrl}/test-automation`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ problem: query })
       });
-      if (!response.ok) throw new Error('Server error');
+      
+      console.log('Response status:', response.status);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Server error:', errorText);
+        throw new Error(`Server error: ${response.status} - ${errorText}`);
+      }
+      
       const data = await response.json();
+      console.log('Response data:', data);
       setResult(data);
     } catch (error) {
-      setError('Error fetching automation help. Please try again later.');
-      console.error(error);
+      console.error('Full error:', error);
+      setError(`Error: ${error.message}`);
     } finally {
       setLoading(false);
     }

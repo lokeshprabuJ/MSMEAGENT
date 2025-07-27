@@ -99,16 +99,24 @@ MACHINES_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'machines.
 VENDORS_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'vendors_tamilnadu.csv')
 
 def load_machines():
-    with open(MACHINES_PATH, encoding='utf-8') as f:
-        return json.load(f)
+    try:
+        with open(MACHINES_PATH, encoding='utf-8') as f:
+            return json.load(f)
+    except Exception as e:
+        logger.error(f"Error loading machines: {str(e)}")
+        return []
 
 def load_vendors():
-    vendors = {}
-    with open(VENDORS_PATH, encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            vendors[row['id']] = row
-    return vendors
+    try:
+        vendors = {}
+        with open(VENDORS_PATH, encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                vendors[row['id']] = row
+        return vendors
+    except Exception as e:
+        logger.error(f"Error loading vendors: {str(e)}")
+        return {}
 
 def match_machine(problem: str):
     machines = load_machines()

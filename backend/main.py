@@ -9,7 +9,13 @@ app = FastAPI(title="MSME Automation Helper")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with your frontend URL
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "https://*.vercel.app",
+        "https://*.netlify.app",
+        "*"  # For development - remove in production
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -19,11 +25,34 @@ app.add_middleware(
 async def read_root() -> Dict[str, str]:
     return {"message": "MSME Automation Helper API is running"}
 
+@app.get("/test")
+async def test_endpoint() -> Dict[str, str]:
+    """Simple test endpoint to verify backend is working."""
+    return {"status": "ok", "message": "Backend is working correctly"}
+
+@app.post("/test-automation")
+async def test_automation() -> Dict[str, Any]:
+    """Test automation endpoint with hardcoded response."""
+    return {
+        "suggestion": "Test suggestion: Semi-automatic powder packing machine\nEstimated Cost: ₹28000\nROI: 2 months\nManpower Savings: Replaces 2 workers\nVendors: Test Vendor (Coimbatore)",
+        "machine_name": "Semi-automatic powder packing machine",
+        "machine_cost": 28000,
+        "roi_months": 2,
+        "manpower_savings": "Replaces 2 workers",
+        "vendors": [{"vendor_name": "Test Vendor", "location": "Coimbatore"}]
+    }
+
 @app.post("/api/automation-suggest")
 async def get_automation_suggestion(query: UserQuery) -> AutomationResponse:
     try:
-        return suggest_automation(query)
+        print(f"Received query: {query.problem}")  # Debug log
+        result = suggest_automation(query)
+        print(f"Result: {result}")  # Debug log
+        return result
     except Exception as e:
+        print(f"Error in automation suggestion: {str(e)}")  # Debug log
+        import traceback
+        traceback.print_exc()  # Print full stack trace
         raise HTTPException(
             status_code=500,
             detail=f"Error processing automation suggestion: {str(e)}"
