@@ -29,7 +29,7 @@ function App() {
       console.log('Sending request to:', `${backendUrl}/api/automation-suggest`);
       console.log('Request body:', { problem: query });
       
-      const response = await fetch(`${backendUrl}/test-automation`, {
+      const response = await fetch(`${backendUrl}/api/automation-suggest`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ problem: query })
