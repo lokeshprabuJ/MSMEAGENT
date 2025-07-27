@@ -13,7 +13,7 @@ const HelperForm = () => {
     setResponse('');
 
     try {
-      const res = await fetch('http://localhost:8000/api/automation-suggest', {
+      const res = await fetch('https://msmeagent.onrender.com/api/automation-suggest', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ problem: input })

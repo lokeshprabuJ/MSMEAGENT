@@ -25,7 +25,8 @@ function App() {
     const query = `I run a ${input.businessType} unit with ${input.numWorkers} workers. ${input.automationGoal}`;
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8000/api/automation-suggest', {
+      const backendUrl = import.meta.env.VITE_API_URL || 'https://msmeagent.onrender.com';
+      const response = await fetch(`${backendUrl}/api/automation-suggest`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ problem: query })
@@ -63,7 +64,8 @@ function App() {
         const formData = new FormData();
         formData.append('file', audioBlob, 'voice.wav');
         try {
-          const res = await fetch('http://localhost:8000/api/transcribe', {
+          const backendUrl = import.meta.env.VITE_API_URL || 'https://msmeagent.onrender.com';
+          const res = await fetch(`${backendUrl}/api/transcribe`, {
             method: 'POST',
             body: formData
           });
